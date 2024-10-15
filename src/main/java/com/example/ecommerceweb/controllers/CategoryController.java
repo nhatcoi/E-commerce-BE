@@ -2,12 +2,10 @@ package com.example.ecommerceweb.controllers;
 
 import com.example.ecommerceweb.dtos.CategoryDTO;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping
+@RequestMapping("categories")
 public class CategoryController {
 
 
@@ -16,6 +14,18 @@ public class CategoryController {
         return "redirect:/";
     }
 
+    @GetMapping("")
+    public String getAllCategories() {
+        return "categories";
+    }
 
+    @PutMapping("/{id}")
+    public String updateCategory(@PathVariable Long id, @ModelAttribute CategoryDTO categoryDTO) {
+        return "redirect:/";
+    }
 
+    @DeleteMapping("/{id}")
+    public String deleteCategory(@PathVariable Long id) {
+        return "redirect:/";
+    }
 }
