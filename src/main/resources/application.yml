@@ -1,0 +1,26 @@
+#    server port web
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+spring:
+  config:
+    name: application.yml
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+#  postgresql
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jackie_shop
+    username: postgres
+    password: postgres
+    hikari:
+      maximum-pool-size: 8
+    driver-class-name: org.postgresql.Driver
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: false
