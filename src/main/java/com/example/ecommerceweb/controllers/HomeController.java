@@ -5,11 +5,14 @@ import com.example.ecommerceweb.entities.Category;
 import com.example.ecommerceweb.entities.Product;
 import com.example.ecommerceweb.services.CategoryService;
 import com.example.ecommerceweb.services.ProductService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.List;
@@ -23,9 +26,11 @@ public class HomeController {
     private final ProductService productService;
 
     @GetMapping("")
-    public String home(Model model) throws IOException, InterruptedException {
+    public String home(@RequestParam(defaultValue = "0") int page, Model model) throws IOException, InterruptedException {
         List<Category> categories = categoryService.getAllCategories();
-        List<Product> products = productService.getAllProducts();
+
+        Page<Product> productPage = productService.getProductsByPage(page, 8);
+        List<Product> products = productPage.getContent();
 
         List<Product> sortedProducts = products.stream()
                 .sorted((p1, p2) -> p2.getCreatedAt().compareTo(p1.getCreatedAt()))
@@ -36,15 +41,13 @@ public class HomeController {
 
         model.addAttribute("categories", categories);
         model.addAttribute("products", products);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", productPage.getTotalPages());
         model.addAttribute("latestProductsLeft", latestProductsLeft);
         model.addAttribute("latestProductsRight", latestProductsRight);
-
 
         return "index";
     }
 
-
-
-
-
 }
+
