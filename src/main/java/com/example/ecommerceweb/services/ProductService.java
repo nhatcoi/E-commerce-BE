@@ -20,4 +20,5 @@ public interface ProductService {
     Page<Product> getAllProducts(PageRequest pageRequest);
     boolean isProductExist(Long id);
     Page<Product> getProductsByPage(int page, int size);
+    List<Product> getProductLatest(int limit);
 }

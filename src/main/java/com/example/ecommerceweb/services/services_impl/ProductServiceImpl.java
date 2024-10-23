@@ -133,4 +133,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll(pageable);
     }
 
+    @Override
+    public List<Product> getProductLatest(int limit) {
+        Pageable pageable = PageRequest.of(0, limit); // 0 for the first page, limit for the size
+        return productRepository.fetchProductLatest(pageable);
+    }
+
 }
