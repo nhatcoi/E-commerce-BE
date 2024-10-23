@@ -2,8 +2,6 @@ package com.example.ecommerceweb.controllers;
 
 import com.example.ecommerceweb.dtos.ProductDTO;
 import com.example.ecommerceweb.entities.Product;
-import com.example.ecommerceweb.entities.ProductImage;
-import com.example.ecommerceweb.repository.ProductImageRepository;
 import com.example.ecommerceweb.services.CategoryService;
 import com.example.ecommerceweb.services.FirebaseStorageService;
 import com.example.ecommerceweb.services.ProductService;
@@ -20,7 +18,7 @@ import java.io.IOException;
 @RequestMapping("products")
 @Controller
 @RequiredArgsConstructor
-public class ProductController {
+public class AddProductController {
     private final FirebaseStorageService firebaseStorageService;
     private final ProductImageService productImageService;
     private final ProductService productService;
@@ -31,7 +29,7 @@ public class ProductController {
     public String showAddProductForm(Model model) {
         model.addAttribute("product", new ProductDTO());
         model.addAttribute("categories", categoryService.getAllCategories());
-        return "add"; // Return the view name directly
+        return "add-product"; // Return the view name directly
     }
 
     @PostMapping("/add")
