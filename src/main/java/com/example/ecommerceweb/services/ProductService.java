@@ -19,4 +19,5 @@ public interface ProductService {
     List<Product> getAllProducts();
     Page<Product> getAllProducts(PageRequest pageRequest);
     boolean isProductExist(Long id);
+    Page<Product> getProductsByPage(int page, int size);
 }
