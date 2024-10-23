@@ -18,7 +18,7 @@ import java.io.IOException;
 @RequestMapping("products")
 @Controller
 @RequiredArgsConstructor
-public class AddProductController {
+public class ManageProductController {
     private final FirebaseStorageService firebaseStorageService;
     private final ProductImageService productImageService;
     private final ProductService productService;
