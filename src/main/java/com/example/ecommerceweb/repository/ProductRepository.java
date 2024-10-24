@@ -12,5 +12,5 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p ORDER BY p.createdAt DESC")
-    List<Product> fetchProductLatest(Pageable pageable);
+    List<Product> fetchLatestProducts(Pageable pageable);
 }

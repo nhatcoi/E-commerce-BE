@@ -368,165 +368,78 @@
 <section class="latest-product spad">
     <div class="container">
         <div class="row">
+            <!--                Latest Product -->
             <div class="col-lg-4 col-md-6">
-                <div class="latest-product__text">
+                <div class="special-product__text">
                     <h4>Latest Products</h4>
-                    <div class="latest-product__slider owl-carousel">
-                        <div class="latest-product__slider__item">
-                            <a th:href="@{'/products/' + ${product.id}}" th:each="product : ${latestProductsLeft}" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img th:src="@{${product.thumbnail}}" alt="">
+                    <div class="special-product__slider owl-carousel">
+                        <div class="special-product__slider__item" th:each="productList : ${latestProducts}">
+                            <div class="special-product__item__group">
+                                <div th:each="product : ${productList}">
+                                    <a th:href="@{'/products/' + ${product.id}}" class="special-product__item">
+                                        <div class="special-product__item__pic">
+                                            <img th:src="@{${product.thumbnail}}" alt="">
+                                        </div>
+                                        <div class="special-product__item__text">
+                                            <h6 th:text="${product.name}"></h6>
+                                            <span th:text="${product.price} + ' $'"></span>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="latest-product__item__text">
-                                    <h6 th:text="${product.name}"></h6>
-                                    <span th:text="${product.price} + ' $'"></span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="latest-product__slider__item">
-                            <a th:href="@{'/products/' + ${product.id}}" th:each="product : ${latestProductsRight}"  class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img th:src="@{${product.thumbnail}}" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6 th:text="${product.name}"></h6>
-                                    <span th:text="${product.price} + ' $'"></span>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+<!--            Top Rated Products-->
             <div class="col-lg-4 col-md-6">
-                <div class="latest-product__text">
+                <div class="special-product__text">
                     <h4>Top Rated Products</h4>
-                    <div class="latest-product__slider owl-carousel">
-                        <div class="latest-prdouct__slider__item">
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-chatgpt.png" alt="">
+                    <div class="special-product__slider owl-carousel">
+                        <div class="special-product__slider__item" th:each="productList : ${topRatedProducts}">
+                            <div class="special-product__item__group">
+                                <div th:each="product : ${productList}">
+                                    <a th:href="@{'/products/' + ${product.id}}" class="special-product__item">
+                                        <div class="special-product__item__pic">
+                                            <img th:src="@{${product.thumbnail}}" alt="">
+                                        </div>
+                                        <div class="special-product__item__text">
+                                            <h6 th:text="${product.name}"></h6>
+                                            <span th:text="${product.price} + ' $'"></span>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Tài Khoản Chat GPT 3.5 Cá Nhân</h6>
-                                    <span>69.000 ₫</span>
-                                </div>
-                            </a>
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/latest-product/lp-youtubepremium.png" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Youtube Premium 4 Tháng</h6>
-                                    <span>80.000 ₫</span>
-                                </div>
-                            </a>
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="/img/featured/feature-netflix.jpeg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Tài Khoản Netflix full dịch vụ Cá </h6>
-                                    <span>260.000 ₫</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="latest-prdouct__slider__item">
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="img/latest-product/lp-chatgpt.png" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Tài Khoản Chat GPT 3.5 Cá Nhân</h6>
-                                    <span>69.000 ₫</span>
-                                </div>
-                            </a>
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="img/latest-product/lp-youtubepremium.png" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Youtube Premium 4 Tháng</h6>
-                                    <span>80.000 ₫</span>
-                                </div>
-                            </a>
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="img/featured/feature-netflix.jpeg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Tài Khoản Netflix full dịch vụ Cá </h6>
-                                    <span>260.000 ₫</span>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-lg-4 col-md-6">
-                <div class="latest-product__text">
-                    <h4>Upcoming Product</h4>
-                    <div class="latest-product__slider owl-carousel">
-                        <div class="latest-prdouct__slider__item">
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="img/latest-product/lp-pornhub.png" alt="">
+                <div class="special-product__text">
+                    <h4>Upcoming Products</h4>
+                    <div class="special-product__slider owl-carousel">
+                        <div class="special-product__slider__item" th:each="productList : ${latestProducts}">
+                            <div class="special-product__item__group">
+                                <div th:each="product : ${productList}">
+                                    <a th:href="@{'/products/' + ${product.id}}" class="special-product__item">
+                                        <div class="special-product__item__pic">
+                                            <img th:src="@{${product.thumbnail}}" alt="">
+                                        </div>
+                                        <div class="special-product__item__text">
+                                            <h6 th:text="${product.name}"></h6>
+                                            <span th:text="${product.price} + ' $'"></span>
+                                        </div>
+                                    </a>
                                 </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Tài Khoản PornHub Giá Rẻ | 3 Tháng</h6>
-                                    <span>150.000 ₫</span>
-                                </div>
-                            </a>
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="img/latest-product/lp-dragonballfinghterz.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Game Dragon Ball Fighter Z</h6>
-                                    <span>400.000 ₫</span>
-                                </div>
-                            </a>
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="img/latest-product/lp-dragonballzkakarotto.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Game Dragon Ball Z: Kakarot</h6>
-                                    <span>500.000 ₫</span>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="latest-prdouct__slider__item">
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="img/latest-product/lp-pornhub.png" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Tài Khoản PornHub Giá Rẻ | 3 Tháng</h6>
-                                    <span>150.000 ₫</span>
-                                </div>
-                            </a>
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="img/latest-product/lp-dragonballfinghterz.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Game Dragon Ball Fighter Z</h6>
-                                    <span>400.000 ₫</span>
-                                </div>
-                            </a>
-                            <a href="#" class="latest-product__item">
-                                <div class="latest-product__item__pic">
-                                    <img src="img/latest-product/lp-dragonballzkakarotto.jpg" alt="">
-                                </div>
-                                <div class="latest-product__item__text">
-                                    <h6>Game Dragon Ball Z: Kakarot</h6>
-                                    <span>500.000 ₫</span>
-                                </div>
-                            </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
@@ -538,7 +451,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title from-blog__title">
-                    <h2>BẢN TIN</h2>
+                    <h2>TECH BLOG</h2>
                 </div>
             </div>
         </div>

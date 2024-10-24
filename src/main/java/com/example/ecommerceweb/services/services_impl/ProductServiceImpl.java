@@ -4,6 +4,7 @@ import com.example.ecommerceweb.dtos.ProductDTO;
 import com.example.ecommerceweb.entities.Category;
 import com.example.ecommerceweb.entities.Product;
 import com.example.ecommerceweb.repository.CategoryRepository;
+import com.example.ecommerceweb.repository.ProductRatingRepository;
 import com.example.ecommerceweb.repository.ProductRepository;
 import com.example.ecommerceweb.services.ProductService;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -34,6 +35,8 @@ import java.util.logging.Logger;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductRatingRepository productRatingRepository;
+
     @Value("${image.base.url}")
     private String imageBaseurl;
 
@@ -134,9 +137,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> getProductLatest(int limit) {
-        Pageable pageable = PageRequest.of(0, limit); // 0 for the first page, limit for the size
-        return productRepository.fetchProductLatest(pageable);
+    public List<Product> getLatestProducts(int limit) {
+        Pageable pageable = PageRequest.of(0, limit);
+        return productRepository.fetchLatestProducts(pageable);
+    }
+
+    @Override
+    public List<Product> getTopRatedProducts(int limit) {
+        Pageable pageable = PageRequest.of(0, limit);
+        return productRatingRepository.fetchTopRatedProducts(pageable);
     }
 
 }
