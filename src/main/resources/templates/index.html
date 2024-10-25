@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description" content="NhatPre">
-    <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>NhatPre</title>
+    <title>JackieShop</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -69,18 +68,18 @@
     </div>
     <nav class="menu__nav mobile-menu">
         <ul>
-            <li class="active"><a href="./index.html">Home</a></li>
-            <li><a href="./shop-grid.html">Shop</a></li>
+            <li class="active"><a th:href="@{/}">Home</a></li>
+            <li><a th:href="@{/shop-grid}">Shop</a></li>
             <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
-                    <li><a href="./shop-details.html">Shop Details</a></li>
-                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                    <li><a href="./checkout.html">Check Out</a></li>
-                    <li><a href="./blog-details.html">Blog Details</a></li>
+                    <li><a th:href="@{/shop-details}">Shop Details</a></li>
+                    <li><a th:href="@{/shoping-cart}">Shoping Cart</a></li>
+                    <li><a th:href="@{/checkout}">Check Out</a></li>
+                    <li><a th:href="@{/blog-details}">Blog Details</a></li>
                 </ul>
             </li>
-            <li><a href="./blog.html">Blog</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a th:href="@{/blog}">Blog</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
         </ul>
     </nav>
     <div id="mobile-menu-wrap"></div>
@@ -90,7 +89,7 @@
     </div>
     <div class="menu__contact">
         <ul>
-            <li><i class="fa fa-envelope"></i>nhatcoifacebook@gmail.com</li>
+            <li><i class="fa fa-envelope"></i>@gmail.com</li>
             <li> 5% discount for orders from 500k</li>
         </ul>
     </div>
@@ -145,18 +144,18 @@
             <div class="col-lg-6">
                 <nav class="header__menu">
                     <ul>
-                        <li class="active"><a href="./index.html">Home</a></li>
-                        <li><a href="./shop-grid.html">Shop</a></li>
+                        <li class="active"><a th:href="@{/}">Home</a></li>
+                        <li><a th:href="@{/shop-grid}">Shop</a></li>
                         <li><a href="#">Pages</a>
                             <ul class="header__menu__dropdown">
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
+                                <li><a th:href="@{/shop-details}">Shop Details</a></li>
+                                <li><a th:href="@{/shoping-cart}">Shoping Cart</a></li>
+                                <li><a th:href="@{/checkout}">Check Out</a></li>
+                                <li><a th:href="@{/blog-details}">Blog Details</a></li>
                             </ul>
                         </li>
-                        <li><a href="./blog.html">Blog</a></li>
-                        <li><a href="./contact.html">Contact</a></li>
+                        <li><a th:href="@{/blog}">Blog</a></li>
+                        <li><a th:href="@{/contact}">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -185,25 +184,13 @@
                 <div class="hero__categories">
                     <div class="hero__categories__all">
                         <i class="fa fa-bars"></i>
-                        <span>Tất cả danh mục</span>
+                        <span>Categories</span>
                     </div>
                     <ul>
                         <li th:each="category : ${categories}">
                             <a th:href="@{'/categories/' + ${category.id}}"
                                th:text="${category.name}"></a>
                         </li>
-                        <!--                            template-->
-                        <!--                            <li><a href="#">ChatGPT Plus</a></li>-->
-                        <!--                            <li><a href="#">Chat GPT Cá Nhân</a></li>-->
-                        <!--                            <li><a href="#">Spotify</a></li>-->
-                        <!--                            <li><a href="#">Youtube Premium</a></li>-->
-                        <!--                            <li><a href="#">Netflix</a></li>-->
-                        <!--                            <li><a href="#">Office 365 & OneDrive </a></li>-->
-                        <!--                            <li><a href="#">Jetbrains</a></li>-->
-                        <!--                            <li><a href="#">Học Tập</a></li>-->
-                        <!--                            <li><a href="#">Giải Trí</a></li>-->
-                        <!--                            <li><a href="#">Phần Mềm</a></li>-->
-                        <!--                            <li><a href="#">Tin Học & IT</a></li>-->
                     </ul>
                 </div>
             </div>
@@ -212,13 +199,13 @@
                     <div class="hero__search__form">
                         <form action="#">
                             <div class="hero__search__categories">
-                                All Sản phẩm
+                                Product Search
                                 <span class="arrow_carrot-down">
 
                                 </span>
                             </div>
                             <label>
-                                <input type="text" placeholder="Tìm kiếm (Search)">
+                                <input type="text" placeholder="Search">
                             </label>
                             <button type="submit" class="site-btn">SEARCH</button>
                         </form>
@@ -254,29 +241,10 @@
     <div class="container">
         <div class="row">
             <div class="categories__slider owl-carousel">
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-chatgpt.png">
-                        <h5><a href="#">CHAT GPT CÁ NHÂN</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-youtubepremium.png">
-                        <h5><a href="#">Youtube Premium</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-spotify.jpg">
-                        <h5><a href="#">Spotify Premium</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-netflix.jpeg">
-                        <h5><a href="#">Netflix 4K Account</a></h5>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="categories__item set-bg" data-setbg="img/categories/cat-office365.png">
-                        <h5><a href="#">Office 365 Bản Quyền 1 năm</a></h5>
+                <div th:each="category : ${categories}" class="col-lg-3">
+<!--                    <div class="categories__item set-bg" th:data-setbg="@{${category.imageUrl}}">-->
+                    <div class="categories__item set-bg" data-setbg="/img/categories/cat-youtubepremium.png">
+                        <h5><a th:href="@{'/categories/' + ${category.id}}" th:text="${category.name}"></a></h5>
                     </div>
                 </div>
             </div>
@@ -563,10 +531,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer__copyright">
-                    <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <div class="footer__copyright__text"><p>
                         Copyright &copy;<script>document.write(new Date().getFullYear());</script> Thanks for come here <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#" target="_blank">NhatCoi</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                    <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
+                    <div class="footer__copyright__payment"><img src="/img/payment-item.png" alt=""></div>
                 </div>
             </div>
         </div>
