@@ -1,4 +1,4 @@
-package com.example.ecommerceweb.services;
+package com.example.ecommerceweb.services.services_impl;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
@@ -18,6 +18,6 @@ public class FirebaseStorageService {
         Bucket bucket = StorageClient.getInstance().bucket();
         String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
         Blob blob = bucket.create(fileName, file.getBytes(), file.getContentType());
-        return blob.getMediaLink();  // Trả về URL của ảnh
+        return blob.getMediaLink();
     }
 }
