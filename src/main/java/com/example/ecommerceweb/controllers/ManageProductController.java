@@ -3,7 +3,7 @@ package com.example.ecommerceweb.controllers;
 import com.example.ecommerceweb.dtos.ProductDTO;
 import com.example.ecommerceweb.entities.Product;
 import com.example.ecommerceweb.services.CategoryService;
-import com.example.ecommerceweb.services.FirebaseStorageService;
+import com.example.ecommerceweb.services.services_impl.FirebaseStorageService;
 import com.example.ecommerceweb.services.ProductService;
 import com.example.ecommerceweb.services.services_impl.ProductImageService;
 import lombok.RequiredArgsConstructor;
