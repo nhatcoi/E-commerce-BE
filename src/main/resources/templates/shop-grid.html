@@ -33,7 +33,7 @@
     <div class="menu__overlay"></div>
     <div class="menu__wrapper">
         <div class="menu__logo">
-            <a href="#"><img src="/img/logo.png" alt=""></a>
+            <a th:href="@{/}"><img src="/img/logo.png" alt="logo"></a>
         </div>
         <div class="menu__cart">
             <ul>
@@ -58,18 +58,18 @@
         </div>
         <nav class="menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
+                <li class="active"><a th:href="@{/}">Home</a></li>
+                <li><a th:href="@{/shop-grid}">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.html">Shop Details</a></li>
-                        <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
+                        <li><a th:href="@{/shop-details}">Shop Details</a></li>
+                        <li><a th:href="@{/shoping-cart}">Shoping Cart</a></li>
+                        <li><a th:href="@{/checkout}">Check Out</a></li>
+                        <li><a th:href="@{/blog-details}">Blog Details</a></li>
                     </ul>
                 </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><a th:href="@{/blog}">Blog</a></li>
+                <li><a th:href="@{/contact}">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -130,24 +130,24 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a th:href="@{/}"><img src="/img/logo.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li class="active"><a href="./shop-grid.html">Shop</a></li>
+                            <li><a th:href="@{/}">Home</a></li>
+                            <li class="active"><a th:href="@{/shop-grid}">Shop</a></li>
                             <li><a href="#">Pages</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
-                                    <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                                    <li><a href="./checkout.html">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    <li><a th:href="@{/shop-details}">Shop Details</a></li>
+                                    <li><a th:href="@{/shoping-cart}">Shoping Cart</a></li>
+                                    <li><a th:href="@{/checkout}">Check Out</a></li>
+                                    <li><a th:href="@{/blog-details}">Blog Details</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./blog.html">Blog</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li><a th:href="@{/blog}">Blog</a></li>
+                            <li><a th:href="@{/contact}">Contact</a></li>
                         </ul>
                     </nav>
                 </div>
@@ -341,7 +341,7 @@
                                     <div class="latest-prdouct__slider__item">
                                         <a href="#" class="special-product__item">
                                             <div class="special-product__item__pic">
-                                                <img src="img/latest-product/lp-1.jpg" alt="">
+                                                <img src="/img/latest-product/lp-1.jpg" alt="">
                                             </div>
                                             <div class="special-product__item__text">
                                                 <h6>Crab Pool Security</h6>
@@ -350,7 +350,7 @@
                                         </a>
                                         <a href="#" class="special-product__item">
                                             <div class="special-product__item__pic">
-                                                <img src="img/latest-product/lp-2.jpg" alt="">
+                                                <img src="/img/latest-product/lp-2.jpg" alt="">
                                             </div>
                                             <div class="special-product__item__text">
                                                 <h6>Crab Pool Security</h6>
@@ -359,7 +359,7 @@
                                         </a>
                                         <a href="#" class="special-product__item">
                                             <div class="special-product__item__pic">
-                                                <img src="img/latest-product/lp-3.jpg" alt="">
+                                                <img src="/img/latest-product/lp-3.jpg" alt="">
                                             </div>
                                             <div class="special-product__item__text">
                                                 <h6>Crab Pool Security</h6>
@@ -408,30 +408,76 @@
                         </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
+
                                 <div th:each="flashSaleItem : ${flashSaleItems}" class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
-                                             th:data-setbg="@{${flashSaleItem.product.thumbnail}}">
-                                            <div class="product__discount__percent" th:text="'-' + ${#numbers.formatDecimal((1 - flashSaleItem.salePrice / flashSaleItem.product.price) * 100, 1, 'POINT')} + '%'"></div>
+                                             th:data-setbg="@{${flashSaleItem.product.thumbnail}}"
+                                            th:data-sale-price="${flashSaleItem.salePrice}"
+                                            th:data-product-price="${flashSaleItem.product.price}">
+<!--                                            <div class="product__discount__percent" th:text="'-' + ${#numbers.formatDecimal((1 - flashSaleItem.salePrice / flashSaleItem.product.price) * 100, 1, 'POINT')} + '%'"></div>-->
+                                            <div class="product__discount__percent"></div>
                                             <ul class="product__item__pic__hover">
                                                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-retweet"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
-                                        <div class="product__discount__item__text">
-                                            <span th:text="${flashSaleItem.product.category.name}">category</span>
-                                            <h5><a th:href="@{'/product/' + ${flashSaleItem.product.id}}" th:text="${flashSaleItem.product.name}">product 1</a></h5>
-                                            <div class="product__item__price">
-                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.product.price, 2, 'POINT')} + ' $'" style="text-decoration: line-through;"></span>
-                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.salePrice, 2, 'POINT')} + ' $'"></span>
-                                            </div>
-                                            <div class="flash-sale-timer" th:if="${flashSale.endTime}">
-                                                <p th:text="'Ends at: ' + ${#dates.format(flashSale.endTime, 'HH:mm:ss dd/MM/yyyy')}"></p>
-                                            </div>
-                                        </div>
+<!--                                        <div class="product__discount__item__text">-->
+<!--                                            <span th:text="${flashSaleItem.product.categoryId.name}">category</span>-->
+<!--                                            <h5><a th:href="@{'/product/' + ${flashSaleItem.product.id}}" th:text="${flashSaleItem.product.name}">product 1</a></h5>-->
+<!--                                            <div class="product__item__price">-->
+<!--                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.product.price, 2, 'POINT')} + ' $'" style="text-decoration: line-through;"></span>-->
+<!--                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.salePrice, 2, 'POINT')} + ' $'"></span>-->
+<!--                                            </div>-->
+<!--                                            <div class="flash-sale-timer" th:if="${flashSale.endTime}">-->
+<!--                                                <p th:text="'Ends at: ' + ${#dates.format(flashSale.endTime, 'HH:mm:ss dd/MM/yyyy')}"></p>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
+
+<!--                                <div th:each="flashSaleItem : ${flashSaleItems}" class="col-lg-4">-->
+<!--                                    <div class="product__discount__item">-->
+<!--                                        <div class="product__discount__item__pic set-bg"-->
+<!--                                             th:data-setbg="@{${flashSaleItem.product.thumbnail}}">-->
+<!--                                            &lt;!&ndash; Tính toán và hiển thị phần trăm giảm giá &ndash;&gt;-->
+<!--                                            <div class="product__discount__percent"-->
+<!--                                                 th:text="'-' + ${#numbers.formatDecimal((1 - flashSaleItem.salePrice / flashSaleItem.product.price) * 100, 1, 'POINT')} + '%'"></div>-->
+<!--                                            <ul class="product__item__pic__hover">-->
+<!--                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>-->
+<!--                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
+<!--                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>-->
+<!--                                            </ul>-->
+<!--                                        </div>-->
+<!--                                        <div class="product__discount__item__text">-->
+<!--                                            &lt;!&ndash; Hiển thị tên danh mục sản phẩm &ndash;&gt;-->
+<!--                                            <span th:text="${flashSaleItem.product.categoryId.name}">category</span>-->
+
+<!--                                            &lt;!&ndash; Hiển thị tên sản phẩm và liên kết đến chi tiết sản phẩm &ndash;&gt;-->
+<!--                                            <h5>-->
+<!--                                                <a th:href="@{'/product/' + ${flashSaleItem.product.id}}"-->
+<!--                                                   th:text="${flashSaleItem.product.name}">Product Name</a>-->
+<!--                                            </h5>-->
+
+<!--                                            &lt;!&ndash; Hiển thị giá gốc và giá sale, giá gốc có gạch ngang &ndash;&gt;-->
+<!--                                            <div class="product__item__price">-->
+<!--                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.product.price, 2, 'POINT')} + ' $'"-->
+<!--                                                      style="text-decoration: line-through; color: #999;"></span>-->
+<!--                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.salePrice, 2, 'POINT')} + ' $'"-->
+<!--                                                      style="color: #e74c3c; font-weight: bold;"></span>-->
+<!--                                            </div>-->
+
+<!--                                            &lt;!&ndash; Hiển thị thời gian kết thúc Flash Sale nếu có &ndash;&gt;-->
+<!--                                            <div class="flash-sale-timer" th:if="${flashSale.endTime}">-->
+<!--                                                <p th:text="'Ends at: ' + ${#dates.format(flashSale.endTime, 'HH:mm:ss dd/MM/yyyy')}"-->
+<!--                                                   style="color: #f39c12; font-size: 0.9em;"></p>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+
 
                             </div>
                         </div>
@@ -663,7 +709,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="footer__about">
                         <div class="footer__about__logo">
-                            <a href="./index.html"><img src="/img/logo.png" alt=""></a>
+                            <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'});"><img src="/img/logo.png" alt=""></a>
                         </div>
                         <ul>
                             <li>Address: 243 Nguyen Viet Xuan</li>
