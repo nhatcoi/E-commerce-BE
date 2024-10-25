@@ -43,7 +43,7 @@
 <div class="menu__overlay"></div>
 <div class="menu__wrapper">
     <div class="menu__logo">
-<!--        <a href="#"><img src="img/logo.png" alt=""></a>-->
+        <a th:href="@{/}"><img src="/img/logo.png" alt="logo"></a>
     </div>
     <div class="menu__cart">
         <ul>
@@ -137,8 +137,8 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-3">
-                <div class="header__logo" >
-                    <a href="./index.html"><img src="img/logo.png" alt="logo"></a>
+                <div class="header__logo">
+                    <a th:href="@{/}"><img src="/img/logo.png" alt="logo"></a>
                 </div>
             </div>
             <div class="col-lg-6">
@@ -225,7 +225,7 @@
                 <div class="hero__item set-bg" data-setbg="img/hero/banner.jpg">
                     <div class="hero__text">
                         <span>Buy Now</span>
-                        <h2>iPhone 16 Pro Max <br />100% Authentic</h2>
+                        <h2>iPhone 16 Pro Max <br/>100% Authentic</h2>
                         <p>iPhone 16 Pro Max</p>
                         <a href="#" class="primary-btn">BUY</a>
                     </div>
@@ -242,7 +242,7 @@
         <div class="row">
             <div class="categories__slider owl-carousel">
                 <div th:each="category : ${categories}" class="col-lg-3">
-<!--                    <div class="categories__item set-bg" th:data-setbg="@{${category.imageUrl}}">-->
+                    <!--                    <div class="categories__item set-bg" th:data-setbg="@{${category.imageUrl}}">-->
                     <div class="categories__item set-bg" data-setbg="/img/categories/cat-youtubepremium.png">
                         <h5><a th:href="@{'/categories/' + ${category.id}}" th:text="${category.name}"></a></h5>
                     </div>
@@ -263,7 +263,7 @@
                 </div>
                 <div class="featured__controls">
                     <ul>
-                        <li class="active" data-filter="*">All </li>
+                        <li class="active" data-filter="*">All</li>
                         <li data-filter=".study">Study</li>
                         <li data-filter=".entertain">Entertain</li>
                         <li data-filter=".software">Software</li>
@@ -298,7 +298,8 @@
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                    th:classappend="${i == currentPage} ? 'active'">
                     <a class="page-link" th:href="@{'/?page=' + ${i}}" th:text="${i + 1}">1</a>
                 </li>
                 <li th:if="${currentPage < totalPages - 1}" class="page-item">
@@ -360,7 +361,7 @@
                 </div>
             </div>
 
-<!--            Top Rated Products-->
+            <!--            Top Rated Products-->
             <div class="col-lg-4 col-md-6">
                 <div class="special-product__text">
                     <h4>Top Rated Products</h4>
@@ -427,7 +428,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="blog__item">
                     <div class="blog__item__pic">
-                        <img src="img/blog/blog-loading.jpg" alt="">
+                        <img src="/img/blog/blog-loading.jpg" alt="">
                     </div>
                     <div class="blog__item__text">
                         <ul>
@@ -442,7 +443,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="blog__item">
                     <div class="blog__item__pic">
-                        <img src="img/blog/blog-loading.jpg" alt="">
+                        <img src="/img/blog/blog-loading.jpg" alt="">
                     </div>
                     <div class="blog__item__text">
                         <ul>
@@ -457,7 +458,7 @@
             <div class="col-lg-4 col-md-4 col-sm-6">
                 <div class="blog__item">
                     <div class="blog__item__pic">
-                        <img src="img/blog/blog-loading.jpg" alt="">
+                        <img src="/img/blog/blog-loading.jpg" alt="">
                     </div>
                     <div class="blog__item__text">
                         <ul>
@@ -481,7 +482,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <div class="footer__about__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'});"><img src="/img/logo.png" alt=""></a>
                     </div>
                     <ul>
                         <li>Address: 243 Nguyen Viet Xuan</li>
@@ -516,7 +517,9 @@
                     <h6>Bản tin thường xuyên</h6>
                     <p>Nhập E-mail để nhận thông báo mới nhất về chúng tôi (Subcribe to notification)</p>
                     <form action="#">
-                        <input type="text" placeholder="Nhập E-mail của bạn">
+                        <label>
+                            <input type="text" placeholder="Nhập E-mail của bạn">
+                        </label>
                         <button type="submit" class="site-btn">Subscribe</button>
                     </form>
                     <div class="footer__widget__social">
@@ -531,9 +534,13 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="footer__copyright">
-                    <div class="footer__copyright__text"><p>
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> Thanks for come here <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#" target="_blank">NhatCoi</a>
-                    <div class="footer__copyright__payment"><img src="/img/payment-item.png" alt=""></div>
+                    <div class="footer__copyright__text">
+                        <p>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                            Thanks for come here <i class="fa fa-heart" aria-hidden="true"></i> by <a href="#"
+                                                                                                      target="_blank">NhatCoi</a>
+                        <div class="footer__copyright__payment"><img src="/img/payment-item.png" alt=""></div>
+                    </div>
                 </div>
             </div>
         </div>
