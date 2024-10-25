@@ -44,7 +44,7 @@
         </div>
         <div class="menu__widget">
             <div class="header__top__right__language">
-                <img src="img/language.png" alt="">
+                <img src="/img/language.png" alt="">
                 <div>VietNam</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
@@ -63,7 +63,7 @@
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
                         <li><a th:href="@{/shop-details}">Shop Details</a></li>
-                        <li><a th:href="@{/shoping-cart}">Shoping Cart</a></li>
+                        <li><a th:href="@{/shoping-cart}">Shopping Cart</a></li>
                         <li><a th:href="@{/checkout}">Check Out</a></li>
                         <li><a th:href="@{/blog-details}">Blog Details</a></li>
                     </ul>
@@ -106,11 +106,9 @@
                             <div class="header__top__right__social">
                                 <a href="https://www.facebook.com/nhatcoi037"><i class="fa fa-facebook"></i></a>
                                 <a href="https://www.messenger.com/t/100038026341974"><i class="fa fa-envelope"></i></a>
-<!--                                <a href="#"><i class="fa fa-linkedin"></i></a>-->
-<!--                                <a href="#"><i class="fa fa-pinterest-p"></i></a>-->
                             </div>
                             <div class="header__top__right__language">
-                                <img src="img/LanguageVN.png" alt="">
+                                <img src="/img/LanguageVN.png" alt="">
                                 <div>VietNam</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
@@ -262,8 +260,8 @@
                                 </div>
                                 <div class="range-slider">
                                     <div class="price-input">
-                                        <input type="text" id="minamount">
-                                        <input type="text" id="maxamount">
+                                        <label for="min-amount"></label><input type="text" id="min-amount">
+                                        <label for="max-amount"></label><input type="text" id="max-amount">
                                     </div>
                                 </div>
                             </div>
@@ -379,7 +377,7 @@
                                         </a>
                                         <a href="#" class="special-product__item">
                                             <div class="special-product__item__pic">
-                                                <img src="img/latest-product/lp-2.jpg" alt="">
+                                                <img src="/img/latest-product/lp-2.jpg" alt="">
                                             </div>
                                             <div class="special-product__item__text">
                                                 <h6>Crab Pool Security</h6>
@@ -388,7 +386,7 @@
                                         </a>
                                         <a href="#" class="special-product__item">
                                             <div class="special-product__item__pic">
-                                                <img src="img/latest-product/lp-3.jpg" alt="">
+                                                <img src="/img/latest-product/lp-3.jpg" alt="">
                                             </div>
                                             <div class="special-product__item__text">
                                                 <h6>Crab Pool Security</h6>
@@ -406,9 +404,11 @@
                         <div class="section-title product__discount__title">
                             <h2>Flash Sale</h2>
                         </div>
+                        <div class="flash-sale-timer" th:if="${flashSale.endTime}">
+                            <p id="flash-sale-end-time"></p>
+                        </div>
                         <div class="row">
                             <div class="product__discount__slider owl-carousel">
-
                                 <div th:each="flashSaleItem : ${flashSaleItems}" class="col-lg-4">
                                     <div class="product__discount__item">
                                         <div class="product__discount__item__pic set-bg"
@@ -423,61 +423,16 @@
                                                 <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
                                             </ul>
                                         </div>
-<!--                                        <div class="product__discount__item__text">-->
-<!--                                            <span th:text="${flashSaleItem.product.categoryId.name}">category</span>-->
-<!--                                            <h5><a th:href="@{'/product/' + ${flashSaleItem.product.id}}" th:text="${flashSaleItem.product.name}">product 1</a></h5>-->
-<!--                                            <div class="product__item__price">-->
-<!--                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.product.price, 2, 'POINT')} + ' $'" style="text-decoration: line-through;"></span>-->
-<!--                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.salePrice, 2, 'POINT')} + ' $'"></span>-->
-<!--                                            </div>-->
-<!--                                            <div class="flash-sale-timer" th:if="${flashSale.endTime}">-->
-<!--                                                <p th:text="'Ends at: ' + ${#dates.format(flashSale.endTime, 'HH:mm:ss dd/MM/yyyy')}"></p>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <div class="product__discount__item__text">
+                                            <span th:text="${flashSaleItem.product.categoryId.name}">category</span>
+                                            <h5><a th:href="@{'/product/' + ${flashSaleItem.product.id}}" th:text="${flashSaleItem.product.name}">product 1</a></h5>
+                                            <div class="product__item__price">
+                                                <span class="original-price" th:data-original-price="${flashSaleItem.product.price}" style="text-decoration: line-through;"></span>
+                                                <span class="sale-price" th:data-sale-price="${flashSaleItem.salePrice}" style="text-decoration: none; font-weight: bold;"></span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-<!--                                <div th:each="flashSaleItem : ${flashSaleItems}" class="col-lg-4">-->
-<!--                                    <div class="product__discount__item">-->
-<!--                                        <div class="product__discount__item__pic set-bg"-->
-<!--                                             th:data-setbg="@{${flashSaleItem.product.thumbnail}}">-->
-<!--                                            &lt;!&ndash; Tính toán và hiển thị phần trăm giảm giá &ndash;&gt;-->
-<!--                                            <div class="product__discount__percent"-->
-<!--                                                 th:text="'-' + ${#numbers.formatDecimal((1 - flashSaleItem.salePrice / flashSaleItem.product.price) * 100, 1, 'POINT')} + '%'"></div>-->
-<!--                                            <ul class="product__item__pic__hover">-->
-<!--                                                <li><a href="#"><i class="fa fa-heart"></i></a></li>-->
-<!--                                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>-->
-<!--                                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                        <div class="product__discount__item__text">-->
-<!--                                            &lt;!&ndash; Hiển thị tên danh mục sản phẩm &ndash;&gt;-->
-<!--                                            <span th:text="${flashSaleItem.product.categoryId.name}">category</span>-->
-
-<!--                                            &lt;!&ndash; Hiển thị tên sản phẩm và liên kết đến chi tiết sản phẩm &ndash;&gt;-->
-<!--                                            <h5>-->
-<!--                                                <a th:href="@{'/product/' + ${flashSaleItem.product.id}}"-->
-<!--                                                   th:text="${flashSaleItem.product.name}">Product Name</a>-->
-<!--                                            </h5>-->
-
-<!--                                            &lt;!&ndash; Hiển thị giá gốc và giá sale, giá gốc có gạch ngang &ndash;&gt;-->
-<!--                                            <div class="product__item__price">-->
-<!--                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.product.price, 2, 'POINT')} + ' $'"-->
-<!--                                                      style="text-decoration: line-through; color: #999;"></span>-->
-<!--                                                <span th:text="${#numbers.formatDecimal(flashSaleItem.salePrice, 2, 'POINT')} + ' $'"-->
-<!--                                                      style="color: #e74c3c; font-weight: bold;"></span>-->
-<!--                                            </div>-->
-
-<!--                                            &lt;!&ndash; Hiển thị thời gian kết thúc Flash Sale nếu có &ndash;&gt;-->
-<!--                                            <div class="flash-sale-timer" th:if="${flashSale.endTime}">-->
-<!--                                                <p th:text="'Ends at: ' + ${#dates.format(flashSale.endTime, 'HH:mm:ss dd/MM/yyyy')}"-->
-<!--                                                   style="color: #f39c12; font-size: 0.9em;"></p>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-
-
 
                             </div>
                         </div>
