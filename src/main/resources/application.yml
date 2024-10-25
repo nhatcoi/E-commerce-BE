@@ -1,21 +1,28 @@
 #    server port web
 server:
-  port: 8080
-  servlet:
-    context-path: /api
+  port: 8085
+#  servlet:
+#    context-path: /api
 spring:
   config:
     name: application.yml
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     show-sql: true
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5MB
+      max-request-size: 5MB
 
-#  postgresql
+
+
+  #  postgresql
   datasource:
     url: jdbc:postgresql://localhost:5432/jackie_shop
-    username: postgres
-    password: postgres
+    username: coinhat
+    password:
     hikari:
       maximum-pool-size: 8
     driver-class-name: org.postgresql.Driver
@@ -24,3 +31,6 @@ spring:
     suffix: .html
     mode: HTML
     cache: false
+image:
+  base:
+    url: "https://firebasestorage.googleapis.com/v0/b/ecommerce-web-18f77.appspot.com/o/"
