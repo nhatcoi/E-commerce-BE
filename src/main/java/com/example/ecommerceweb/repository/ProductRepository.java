@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p ORDER BY p.createdAt DESC")
     List<Product> fetchLatestProducts(Pageable pageable);
+
+    List<Product> findByPriceBetween(double min, double max);
 }

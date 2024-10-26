@@ -137,8 +137,8 @@
 
     // Flash Sale Price Slider
     var rangeSlider = $(".price-range"),
-        minAmount = $("#min-amount"),
-        maxAmount = $("#max-amount"),
+        minamount = $("#minamount"),
+        maxamount = $("#maxamount"),
         minPrice = rangeSlider.data('min'),
         maxPrice = rangeSlider.data('max');
     rangeSlider.slider({
@@ -151,8 +151,8 @@
             maxamount.val('$' + ui.values[1]);
         }
     });
-    minAmount.val('$' + rangeSlider.slider("values", 0));
-    maxAmount.val('$' + rangeSlider.slider("values", 1));
+    minamount.val('$' + rangeSlider.slider("values", 0));
+    maxamount.val('$' + rangeSlider.slider("values", 1));
 
     // nice select
     $("select").niceSelect();
@@ -195,6 +195,7 @@
 
 
 
+    // Set percent discount
     $(document).ready(function() {
         $('.product__discount__item__pic').each(function() {
             const salePrice = parseFloat($(this).attr('data-sale-price'));
@@ -204,6 +205,7 @@
         });
     });
 
+    // set price and sale price
     $(document).ready(function() {
         $('.product__item__price').each(function() {
             var originalPrice = parseFloat($(this).find('.original-price').data('original-price'));
@@ -217,10 +219,91 @@
         });
     });
 
+    // Countdown timer
     $(document).ready(function() {
-        var endTime = /*[[${flashSale.endTime}]]*/ '2023-12-31T23:59:59';
-        var formattedEndTime = new Date(endTime).toLocaleString('vi-VN', { hour12: false });
-        $('#flash-sale-end-time').text('Ends at: ' + formattedEndTime);
+        // Define end time in milliseconds or fetch it from the backend
+        var endTime = new Date($("#flash-sale-end-time").text()).getTime();
+
+        function updateCountdown() {
+            var now = new Date().getTime();
+            var timeRemaining = endTime - now;
+
+            if (timeRemaining <= 0) {
+                $('#flash-sale-count-end-time').text('Flash sale has ended');
+                clearInterval(countdownInterval);
+            } else {
+                var days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+                $('#flash-sale-count-end-time').text(`Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`);
+            }
+        }
+
+        // Update countdown every second
+        var countdownInterval = setInterval(updateCountdown, 1000);
     });
+
+
+    // Filter by price
+    $(document).ready(function() {
+        // Set default min and max price
+        var min = 1;
+        var max = 5000;
+
+        $(".price-range").slider({
+            range: true,
+            min: min,
+            max: max,
+            values: [min, max],
+            slide: function(event, ui) {
+                $("#minamount").val(ui.values[0]);
+                $("#maxamount").val(ui.values[1]);
+            }
+        });
+
+        $("#minamount").val($(".price-range").slider("values", 0));
+        $("#maxamount").val($(".price-range").slider("values", 1));
+
+        // Filter and set products
+        $("#filterButton").click(function() {
+            $.ajax({
+                url: "/shop-grid/filterByPrice",
+                type: "GET",
+                data: {
+                    minamount: $("#minamount").val(),
+                    maxamount: $("#maxamount").val()
+                },
+                success: function(data) {
+                    $("#filterProducts").empty();
+
+                    $.each(data, function(index, product) {
+                        $("#filterProducts").append(`
+                        <div class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" style="background-image: url('${product.thumbnail}');">
+                                    <ul class="product__item__pic__hover">
+                                        <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="product__item__text">
+                                    <h6><a href="/products/${product.id}">${product.name}</a></h6>
+                                    <h5>${product.price} $</h5>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    });
+                },
+                error: function() {
+                    alert("Error");
+                }
+            });
+        });
+    });
+
 
 })(jQuery);

@@ -22,4 +22,5 @@ public interface ProductService {
     Page<Product> getProductsByPage(int page, int size);
     List<Product> getLatestProducts(int limit);
     List<Product> getTopRatedProducts(int limit);
+    List<Product> getProductByPriceRange(int min, int max);
 }

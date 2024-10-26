@@ -148,4 +148,8 @@ public class ProductServiceImpl implements ProductService {
         return productRatingRepository.fetchTopRatedProducts(pageable);
     }
 
+    public List<Product> getProductByPriceRange(int minAmount, int maxAmount) {
+        return productRepository.findByPriceBetween(minAmount, maxAmount);
+    }
+
 }
