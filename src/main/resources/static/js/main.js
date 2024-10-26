@@ -276,6 +276,7 @@
                     maxamount: $("#maxamount").val()
                 },
                 success: function(data) {
+                    $("#products-found").text(data.length);
                     $("#filterProducts").empty();
 
                     $.each(data, function(index, product) {
