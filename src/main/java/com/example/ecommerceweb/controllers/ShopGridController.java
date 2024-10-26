@@ -16,12 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.ecommerceweb.controllers.HomeController.LATEST_LIMIT;
-import static com.example.ecommerceweb.controllers.HomeController.PAGE_SLIDE;
+import static com.example.ecommerceweb.utils.Static.*;
 import static com.example.ecommerceweb.utils.DivideList.divideList;
 
 @Slf4j
@@ -49,7 +45,6 @@ public class ShopGridController {
         model.addAttribute("flashSaleItems", flashSaleItems);
         model.addAttribute("flashSale", currentFlashSale);
         model.addAttribute("latestProducts", latestProducts);
-
         return "shop-grid";
     }
 
@@ -67,7 +62,6 @@ public class ShopGridController {
             min = 0;
             max = Integer.MAX_VALUE;
         }
-
         return productService.getProductByPriceRange(min, max); // return Json
     }
 }
