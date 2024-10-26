@@ -306,5 +306,30 @@
         });
     });
 
+    // delete nice select with
+    $('#sortOptions').niceSelect('destroy');
+
+    // Sort options products
+    $('#sortOptions').change(function() {
+        const sortBy = $(this).val();
+        let products = $('#filterProducts .col-lg-4').toArray();
+
+        products.sort(function(a, b) {
+            // Get prices from the product elements
+            const priceA = parseFloat($(a).find('.product__item__text h5').text().replace('$', '').trim());
+            const priceB = parseFloat($(b).find('.product__item__text h5').text().replace('$', '').trim());
+
+            if (sortBy === 'priceHighToLow') {
+                return priceB - priceA; // Sort descending
+            } else if (sortBy === 'priceLowToHigh') {
+                return priceA - priceB; // Sort ascending
+            }
+            return 0; // No sorting
+        });
+
+        // Clear and re-append sorted products
+        $('#filterProducts').empty().append(products);
+    });
+
 
 })(jQuery);
