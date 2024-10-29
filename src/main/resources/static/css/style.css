@@ -1528,6 +1528,11 @@ ol {
     padding-bottom: 20px;
 }
 
+#sortOptions {
+    display: block !important;
+    visibility: visible !important;
+}
+
 .filter__sort {
     margin-bottom: 15px;
 }
