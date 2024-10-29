@@ -33,7 +33,7 @@ public class ShopGridController {
     @GetMapping("")
     public String shopGrid(Model model) {
         List<Category> categories = categoryService.getAllCategories();
-        FlashSale currentFlashSale = flashSaleService.getCurrentFlashSale();
+        FlashSale currentFlashSale = flashSaleService.getCurrentFlashSale() != null ? flashSaleService.getCurrentFlashSale() : new FlashSale();
         List<FlashSaleItem> flashSaleItems = flashSaleItemService.getProductsInFlashSale(currentFlashSale.getId());
 
         List<List<Product>> latestProducts = divideList(
@@ -45,6 +45,7 @@ public class ShopGridController {
         model.addAttribute("flashSaleItems", flashSaleItems);
         model.addAttribute("flashSale", currentFlashSale);
         model.addAttribute("latestProducts", latestProducts);
+
         return "shop-grid";
     }
 
