@@ -33,5 +33,7 @@ build/
 .vscode/
 
 ### project ###
-build.sql
-firebase-service-account.json
+ecommerce-web-key.json
+
+### ignore directories ###
+docs_ignore/
