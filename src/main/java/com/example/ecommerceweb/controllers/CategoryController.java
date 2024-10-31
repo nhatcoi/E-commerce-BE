@@ -25,6 +25,12 @@ public class CategoryController {
         return "index";
     }
 
+    @GetMapping("/{id}")
+    public String getCategoryById(@PathVariable Long id, Model model) {
+        model.addAttribute("category", categoryService.getCategoryById(id));
+        return "index";
+    }
+
     @PutMapping("/{id}")
     public String updateCategory(@PathVariable Long id, @ModelAttribute CategoryDTO categoryDTO) {
         categoryService.updateCategory(id, categoryDTO);
