@@ -31,6 +31,14 @@ spring:
     suffix: .html
     mode: HTML
     cache: false
+
 image:
   base:
     url: "https://firebasestorage.googleapis.com/v0/b/ecommerce-web-18f77.appspot.com/o/"
+
+google:
+  credentials:
+    path: "src/main/resources/google-api-key.json"
+
+  project:
+    id: "jackieshop-f297c"
