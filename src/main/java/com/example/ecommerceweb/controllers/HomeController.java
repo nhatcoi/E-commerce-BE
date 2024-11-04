@@ -30,7 +30,6 @@ public class HomeController {
     private final CategoryService categoryService;
     private final ProductService productService;
 
-
     @GetMapping("")
     public String home(Model model) throws IOException, InterruptedException {
         List<Category> categories = categoryService.getAllCategories();
@@ -49,9 +48,9 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/switch")
+    @GetMapping("/switch-page")
     @ResponseBody
-    public Map<String, Object> getProducts(@RequestParam(defaultValue = "0") int page) {
+    public Map<String, Object> getProducts(@RequestParam int page) {
         Page<Product> productPage = productService.getProductsByPage(page, PAGINATION_LIMIT);
         Map<String, Object> response = new HashMap<>();
         response.put("products", productPage.getContent());
