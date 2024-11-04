@@ -94,7 +94,7 @@
                         </div>
                         <div class="product__details__pic__slider owl-carousel">
                             <img th:each="image : ${productImages}" th:data-imgbigurl="${product.getThumbnail()}"
-                                 th:src="${image.getImageUrl()}" alt="Product Image">
+                                 th:src="${image.getImageUrl()}" alt="Product Image" style="height: 160px !important; border-radius: 5px">
                         </div>
                     </div>
                 </div>
