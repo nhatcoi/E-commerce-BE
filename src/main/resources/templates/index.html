@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -8,19 +8,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JackieShop</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-
     <!-- Css Styles thymeleaf -->
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/elegant-icons.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/nice-select.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/jquery-ui.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/owl.carousel.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/slicknav.min.css}" rel="stylesheet" type="text/css">
-    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="/css/style.css" th:href="@{/css/style.css}" type="text/css">
+    <th:block th:replace="~{common/css-fragment :: cssStyles}"></th:block>
 </head>
 
 <body>
@@ -80,7 +69,7 @@
                         <span>Buy Now</span>
                         <h2>iPhone 16 Pro Max <br/>100% Authentic</h2>
                         <p>iPhone 16 Pro Max</p>
-                        <a href="#" class="primary-btn">BUY</a>
+                        <a th:href="@{'/products/29'}" class="primary-btn">BUY</a>
                     </div>
                 </div>
             </div>
