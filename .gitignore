@@ -37,3 +37,4 @@ ecommerce-web-key.json
 
 ### ignore directories ###
 docs_ignore/
+.env
