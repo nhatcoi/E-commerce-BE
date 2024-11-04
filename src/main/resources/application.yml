@@ -3,6 +3,8 @@ server:
 #  servlet:
 #    context-path: /api
 spring:
+  profiles:
+    include: dotenv
   config:
     name: application.yml
   jpa:
@@ -32,3 +34,8 @@ spring:
 image:
   base:
     url: ${IMAGE_BASE_URL}
+
+firebase:
+  service-account-path: ${FIREBASE_SERVICE_ACCOUNT_PATH}
+  storage-bucket: ${FIREBASE_STORAGE_BUCKET}
+
