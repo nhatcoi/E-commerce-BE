@@ -94,10 +94,10 @@
     <div class="container">
         <div class="row">
             <div class="categories__slider owl-carousel">
-                <div th:each="category : ${categories}" class="col-lg-3">
+                <div th:each="cate : ${categories}" class="col-lg-3">
                     <!--                    <div class="categories__item set-bg" th:data-setbg="@{${category.imageUrl}}">-->
-                    <div class="categories__item set-bg" data-setbg="/img/categories/cat-youtubepremium.png">
-                        <h5><a th:href="@{'/categories/' + ${category.id}}" th:text="${category.name}"></a></h5>
+                    <div class="categories__item set-bg" th:data-setbg="@{${cate.imageUrl}}">
+                        <h5><a th:href="@{'/categories/' + ${cate.id}}" th:text="${cate.name}"></a></h5>
                     </div>
                 </div>
             </div>
@@ -325,6 +325,8 @@
 <script th:src="@{/js/vendor/mixitup.min.js}"></script>
 <script th:src="@{/js/vendor/owl.carousel.min.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/pages/home.js}"></script>
+
 
 
 </body>
