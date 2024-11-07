@@ -1,8 +1,13 @@
+create sequence products_ratings_id_seq;
+
+alter sequence products_ratings_id_seq owner to coinhat;
+
 create table categories
 (
-    id   serial
+    id        serial
         primary key,
-    name varchar(255) not null
+    name      varchar(255) not null,
+    image_url varchar
 );
 
 alter table categories
@@ -10,19 +15,21 @@ alter table categories
 
 create table products
 (
-    id          serial
+    id                serial
         primary key,
-    name        varchar(255) default ''::character varying not null,
-    price       double precision                           not null
+    name              varchar(255) default ''::character varying not null,
+    price             double precision                           not null
         constraint products_price_check
             check (price >= (0)::double precision),
-    thumbnail   varchar(255) default NULL::character varying,
-    description varchar(255),
-    created_at  timestamp    default CURRENT_TIMESTAMP,
-    updated_at  timestamp    default CURRENT_TIMESTAMP,
-    category_id integer
+    thumbnail         varchar(255) default NULL::character varying,
+    description       text                                       not null,
+    created_at        timestamp    default CURRENT_TIMESTAMP,
+    updated_at        timestamp    default CURRENT_TIMESTAMP,
+    category_id       integer
         constraint products_category_fk
-            references categories
+            references categories,
+    quantity_in_stock integer,
+    weight            double precision
 );
 
 alter table products
@@ -201,5 +208,71 @@ create table product_ratings
 );
 
 alter table product_ratings
+    owner to coinhat;
+
+alter sequence products_ratings_id_seq owned by product_ratings.id;
+
+create table flash_sales
+(
+    id         serial
+        primary key,
+    name       varchar(255) not null,
+    start_time timestamp    not null,
+    end_time   timestamp    not null,
+    created_at timestamp default CURRENT_TIMESTAMP,
+    updated_at timestamp
+);
+
+alter table flash_sales
+    owner to coinhat;
+
+create table flash_sale_items
+(
+    id             serial
+        primary key,
+    flash_sale_id  integer
+        references flash_sales,
+    product_id     integer
+        references products,
+    sale_price     numeric(10, 2) not null,
+    quantity_limit integer,
+    created_at     timestamp default CURRENT_TIMESTAMP,
+    updated_at     timestamp
+);
+
+alter table flash_sale_items
+    owner to coinhat;
+
+create table blog_categories
+(
+    id          serial
+        primary key,
+    name        varchar(255) not null,
+    description text,
+    created_at  timestamp default CURRENT_TIMESTAMP,
+    update_at   timestamp default CURRENT_TIMESTAMP
+);
+
+alter table blog_categories
+    owner to coinhat;
+
+create table blogs
+(
+    id          serial
+        primary key,
+    title       varchar(255) not null,
+    content     text         not null,
+    thumbnail   varchar,
+    user_id     integer
+        constraint fk_user
+            references users,
+    category_id integer
+        constraint fk_category
+            references blog_categories,
+    created_at  timestamp default CURRENT_TIMESTAMP,
+    updated_at  timestamp default CURRENT_TIMESTAMP
+);
+
+alter table blogs
     owner to coinhat;
 
