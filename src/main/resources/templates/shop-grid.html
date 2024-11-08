@@ -243,7 +243,7 @@
                                         </div>
                                         <div class="product__discount__item__text">
                                             <span th:text="${flashSaleItem.product.categoryId.name}">category</span>
-                                            <h5><a th:href="@{'/product/' + ${flashSaleItem.product.id}}" th:text="${flashSaleItem.product.name}">product 1</a></h5>
+                                            <h5><a th:href="@{'/products/' + ${flashSaleItem.product.id}}" th:text="${flashSaleItem.product.name}">product 1</a></h5>
                                             <div class="product__item__price">
                                                 <span class="original-price" th:data-original-price="${flashSaleItem.product.price}" style="text-decoration: line-through;"></span>
                                                 <span class="sale-price" th:data-sale-price="${flashSaleItem.salePrice}" style="text-decoration: none; font-weight: bold;"></span>

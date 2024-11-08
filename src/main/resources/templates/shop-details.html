@@ -106,7 +106,7 @@
                             <i class="fa fa-star-half-o" th:if="${avgRating % 1 != 0}"></i>
 <!--                            <span th:text="'(' + ${product.reviews.size()} + ' reviews)'"></span>-->
                         </div>
-                        <div class="product__details__price" th:text="${product.getPrice()}"></div>
+                        <div class="product__details__price" th:text="${product.getPrice()} + '$'"></div>
                         <p th:text="${product.getDescription()}"></p>
                         <div class="product__details__quantity">
                             <div class="quantity">
@@ -196,6 +196,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="img/product/product-2.jpg">
