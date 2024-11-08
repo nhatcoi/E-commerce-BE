@@ -1,6 +1,6 @@
 create sequence products_ratings_id_seq;
 
-alter sequence products_ratings_id_seq owner to coinhat;
+alter sequence products_ratings_id_seq owner to postgres;
 
 create table categories
 (
@@ -11,7 +11,7 @@ create table categories
 );
 
 alter table categories
-    owner to coinhat;
+    owner to postgres;
 
 create table products
 (
@@ -33,7 +33,7 @@ create table products
 );
 
 alter table products
-    owner to coinhat;
+    owner to postgres;
 
 create index idx_category_id
     on products (category_id);
@@ -50,7 +50,7 @@ create table product_images
 );
 
 alter table product_images
-    owner to coinhat;
+    owner to postgres;
 
 create table roles
 (
@@ -60,7 +60,7 @@ create table roles
 );
 
 alter table roles
-    owner to coinhat;
+    owner to postgres;
 
 create table users
 (
@@ -82,7 +82,7 @@ create table users
 );
 
 alter table users
-    owner to coinhat;
+    owner to postgres;
 
 create index idx_password
     on users (password);
@@ -117,7 +117,7 @@ create table orders
 );
 
 alter table orders
-    owner to coinhat;
+    owner to postgres;
 
 create index idx_user_id
     on orders (user_id);
@@ -145,7 +145,7 @@ create table order_details
 );
 
 alter table order_details
-    owner to coinhat;
+    owner to postgres;
 
 create index idx_order_id
     on order_details (order_id);
@@ -167,7 +167,7 @@ create table social_accounts
 );
 
 alter table social_accounts
-    owner to coinhat;
+    owner to postgres;
 
 create table tokens
 (
@@ -185,7 +185,7 @@ create table tokens
 );
 
 alter table tokens
-    owner to coinhat;
+    owner to postgres;
 
 create table product_ratings
 (
@@ -208,7 +208,7 @@ create table product_ratings
 );
 
 alter table product_ratings
-    owner to coinhat;
+    owner to postgres;
 
 alter sequence products_ratings_id_seq owned by product_ratings.id;
 
@@ -224,7 +224,7 @@ create table flash_sales
 );
 
 alter table flash_sales
-    owner to coinhat;
+    owner to postgres;
 
 create table flash_sale_items
 (
@@ -241,20 +241,17 @@ create table flash_sale_items
 );
 
 alter table flash_sale_items
-    owner to coinhat;
+    owner to postgres;
 
 create table blog_categories
 (
-    id          serial
+    id   serial
         primary key,
-    name        varchar(255) not null,
-    description text,
-    created_at  timestamp default CURRENT_TIMESTAMP,
-    update_at   timestamp default CURRENT_TIMESTAMP
+    name varchar(255) not null
 );
 
 alter table blog_categories
-    owner to coinhat;
+    owner to postgres;
 
 create table blogs
 (
@@ -274,5 +271,5 @@ create table blogs
 );
 
 alter table blogs
-    owner to coinhat;
+    owner to postgres;
 
