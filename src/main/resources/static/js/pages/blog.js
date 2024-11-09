@@ -22,157 +22,102 @@
 
     // call api blog categories
     $(document).ready(function () {
-        // Load categories
-        $.ajax({
-            url: `blog/categories`,
-            type: "GET",
-            success: function (response) {
-                response.forEach(category => {
-                    $("#blog-categories").append(`
-                    <li><a href="#" class="category-link" data-category-id="${category.id}">${category.name}</a></li>
-                `);
-                    $("#search-by").append(`
-                    <a href="#" class="category-link" data-category-id="${category.id}">${category.name}</a>
-                `);
-                });
+        loadCategories();
+        loadBlogs(`/blog/blogs`, 0); // Initial load of all blogs
 
-                // Add click event for categories
-                $(".category-link").click(function(e) {
-                    e.preventDefault();
-                    let categoryId = $(this).data("category-id");
-                    loadBlogsByCategory(0, categoryId);  // Load blogs for the selected category
-                });
-            },
-            error: function () {
-                alert("Could not load blog categories.");
+        function loadCategories() {
+            $.ajax({
+                url: `blog/categories`,
+                type: "GET",
+                success: function (response) {
+                    response.forEach(category => {
+                        $("#blog-categories").append(`
+                        <li><a href="#" class="category-link" data-category-id="${category.id}">${category.name}</a></li>
+                    `);
+                        $("#search-by").append(`
+                        <a href="#" class="category-link" data-category-id="${category.id}">${category.name}</a>
+                    `);
+                    });
+
+                    // Category click event to load blogs by category
+                    $(".category-link").click(function(e) {
+                        e.preventDefault();
+                        let categoryId = $(this).data("category-id");
+                        loadBlogs(`/blog/category/${categoryId}`, 0);  // Load blogs by selected category
+                    });
+                },
+                error: function () {
+                    alert("Could not load blog categories.");
+                }
+            });
+        }
+
+        function loadBlogs(url, page) {
+            $.ajax({
+                url: url,
+                method: "GET",
+                data: { page: page, size: 4 },
+                success: function(data) {
+                    renderBlogs(data.content);
+                    renderPagination(data.totalPages, data.number, url); // Pass the URL for category-specific or all blogs
+                },
+                error: function(error) {
+                    console.log("Error fetching blog data:", error);
+                }
+            });
+        }
+
+        function renderBlogs(blogs) {
+            let blogContainer = $('#blog-container');
+            blogContainer.empty();
+
+            blogs.forEach(blog => {
+                let date = new Date(blog.createdAt);
+                let options = { year: 'numeric', month: 'long', day: 'numeric' };
+                let formattedDate = date.toLocaleDateString('en-US', options);
+
+                let blogItem = `
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="blog__item">
+                        <div class="blog__item__pic">
+                            <img src="${blog.thumbnail}" alt="image blog">
+                        </div>
+                        <div class="blog__item__text">
+                            <ul>
+                                <li><i class="fa fa-calendar-o"></i> ${formattedDate}</li>
+                            </ul>
+                            <h5><a href="/blog/${blog.id}">${blog.title}</a></h5>
+                            <p>${blog.content.substring(0, 80)}...</p>
+                            <a href="/blog/${blog.id}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
+                        </div>
+                    </div>
+                </div>
+            `;
+                blogContainer.append(blogItem);
+            });
+        }
+
+        function renderPagination(totalPages, currentPage, url) {
+            let pagination = $('.product__pagination.blog__pagination');
+            pagination.empty(); // Clear current pagination
+
+            for (let i = 0; i < totalPages; i++) {
+                let activeClass = i === currentPage ? 'active' : '';
+                pagination.append(`
+                <a href="#" class="pagination-link ${activeClass}" data-page="${i}" data-url="${url}">${i + 1}</a>
+            `);
             }
+        }
+
+        // Event delegation for pagination
+        $(document).on('click', '.pagination-link', function(e) {
+            e.preventDefault();
+            let page = $(this).data('page');
+            let url = $(this).data('url');
+            loadBlogs(url, page);  // Load blogs for the selected page
         });
-
-        loadBlogsByCategory(0, 0);
-
-        function loadBlogsByCategory(page, categoryId) {
-            $.ajax({
-                url: `/blog/category/${categoryId}`,
-                method: "GET",
-                data: { page: page, size: 6 },
-                success: function(data) {
-                    let blogContainer = $('#blog-container');
-                    blogContainer.empty();
-
-                    data.content.forEach(blog => {
-                        let date = new Date(blog.createdAt);
-                        let options = { year: 'numeric', month: 'long', day: 'numeric' };
-                        let formattedDate = date.toLocaleDateString('en-US', options);
-
-                        let blogItem = `
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="${blog.thumbnail}" alt="image blog">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa fa-calendar-o"></i> ${formattedDate}</li>
-                                    </ul>
-                                    <h5><a href="/blog/${blog.id}">${blog.title}</a></h5>
-                                    <p>${blog.content.substring(0, 80)}...</p>
-                                    <a href="/blog/${blog.id}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                        blogContainer.append(blogItem);
-                    });
-
-                    // Pagination
-                    let pagination = $('.product__pagination.blog__pagination');
-                    pagination.empty(); // Clear current pagination
-
-                    for (let i = 0; i < data.totalPages; i++) {
-                        let activeClass = i === data.number ? 'active' : '';
-                        pagination.append(`
-                        <a href="#" class="pagination-link ${activeClass}" data-page="${i}" data-category-id="${categoryId}">${i + 1}</a>
-                    `);
-                    }
-
-                    // Click page
-                    $('.pagination-link').click(function(e) {
-                        e.preventDefault();
-                        let page = $(this).data('page');
-                        let categoryId = $(this).data('category-id');
-                        loadBlogsByCategory(page, categoryId);  // Pass categoryId to keep the category filter
-                    });
-                },
-                error: function(error) {
-                    console.log("Error fetching blog data:", error);
-                }
-            });
-        }
     });
 
-
-    // blogs
-    $(document).ready(function() {
-        loadBlogs(0);
-
-        function loadBlogs(page) {
-            $.ajax({
-                url: "/blog/blogs",
-                method: "GET",
-                data: { page: page, size: 6 },
-                success: function(data) {
-                    let blogContainer = $('#blog-container');
-                    blogContainer.empty();
-
-                    data.content.forEach(blog => {
-                        let date = new Date(blog.createdAt);
-                        let options = { year: 'numeric', month: 'long', day: 'numeric' };
-                        let formattedDate = date.toLocaleDateString('en-US', options);
-
-                        let blogItem = `
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="blog__item">
-                                <div class="blog__item__pic">
-                                    <img src="${blog.thumbnail}" alt="image blog">
-                                </div>
-                                <div class="blog__item__text">
-                                    <ul>
-                                        <li><i class="fa fa-calendar-o"></i> ${formattedDate}</li>
-                                    </ul>
-                                    <h5><a href="/blog/${blog.id}">${blog.title}</a></h5>
-                                    <p>${blog.content.substring(0, 80)}...</p>
-                                    <a href="/blog/${blog.id}" class="blog__btn">READ MORE <span class="arrow_right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                        blogContainer.append(blogItem);
-                    });
-
-                    // Pagination
-                    let pagination = $('.product__pagination.blog__pagination');
-                    pagination.empty(); // Clear current pagination
-
-                    for (let i = 0; i < data.totalPages; i++) {
-                        let activeClass = i === data.number ? 'active' : '';
-                        pagination.append(`
-                        <a href="#" class="${activeClass}" data-page="${i}">${i + 1}</a>
-                    `);
-                    }
-
-                    // Click page
-                    $('.product__pagination.blog__pagination a').click(function(e) {
-                        e.preventDefault();
-                        let page = $(this).data('page');
-                        loadBlogs(page);
-                    });
-                },
-                error: function(error) {
-                    console.log("Error fetching blog data:", error);
-                }
-            });
-        }
-    });
 
 
     // recent blogs
@@ -208,13 +153,6 @@
             }
         });
     });
-
-
-    // category id
-
-
-
-
 
 
 } (jQuery));
