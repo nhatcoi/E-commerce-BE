@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("categories")
 @RequiredArgsConstructor
@@ -20,9 +22,9 @@ public class CategoryController {
     }
 
     @GetMapping("")
-    public String getAllCategories(Model model) {
-        model.addAttribute("categories", categoryService.getAllCategories());
-        return "index";
+    @ResponseBody
+    public List<?> categories() {
+        return categoryService.getAllCategories();
     }
 
     @GetMapping("/{id}")
