@@ -1,41 +1,22 @@
 server:
-  port: ${SERVER_PORT}
+  port: ${SERVER_PORT:8085}
+  address: ${SERVER_ADDRESS:localhost}
 #  servlet:
 #    context-path: /api
+
+
 spring:
+  application:
+    name: ecommerce-web
   profiles:
-    include: dotenv
-  config:
-    name: application.yml
-  jpa:
-    hibernate:
-      ddl-auto: none
-    show-sql: true
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 5MB
-      max-request-size: 5MB
+    active: dev
 
-  #  postgresql
-  datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-    hikari:
-      maximum-pool-size: 8
-    driver-class-name: org.postgresql.Driver
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    mode: HTML
-    cache: false
+logging:
+  level:
+    root: INFO
+    web: OFF
+    org.springframework: INFO
+    org.apache: OFF
+    kafka: OFF
 
-image:
-  base:
-    url: ${IMAGE_BASE_URL}
-
-firebase:
-  service-account-path: ${FIREBASE_SERVICE_ACCOUNT_PATH}
-  storage-bucket: ${FIREBASE_STORAGE_BUCKET}
 
