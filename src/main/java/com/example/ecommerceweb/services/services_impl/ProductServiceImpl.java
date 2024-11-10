@@ -121,8 +121,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> getAllProducts(PageRequest pageRequest) {
-        // Retrieve all products with pagination
-        return productRepository.findAll(pageRequest);
+        return productRepository.findAllProductsByPage(pageRequest);
     }
 
     @Override
