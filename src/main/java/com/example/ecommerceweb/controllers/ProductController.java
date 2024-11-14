@@ -1,10 +1,16 @@
 package com.example.ecommerceweb.controllers;
 
+import com.example.ecommerceweb.dtos.PaginatedResponse;
+import com.example.ecommerceweb.dtos.ProductDTO;
 import com.example.ecommerceweb.entities.Product;
 import com.example.ecommerceweb.services.ProductService;
 import com.example.ecommerceweb.services.services_impl.ProductImageService;
 import com.example.ecommerceweb.services.services_impl.ProductRatingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,4 +43,31 @@ public class ProductController {
         model.addAttribute("urlProduct", urlProduct);
         return "common/share-product";
     }
+
+    @GetMapping("")
+    public ResponseEntity<PaginatedResponse<ProductDTO>> getProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "4") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProductDTO> productsPage = productService.getAllProducts(pageable);
+        PaginatedResponse<ProductDTO> response = productService.createPaginatedResponse(productsPage);
+
+        return ResponseEntity.ok(response);
+    }
+
+
+    @GetMapping("categories/{id}")
+    public ResponseEntity<PaginatedResponse<ProductDTO>> getProductsByCategory(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "4") int size) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<ProductDTO> productsPage = productService.getProductsByCategory(pageable, id);
+        PaginatedResponse<ProductDTO> response = productService.createPaginatedResponse(productsPage);
+
+        return ResponseEntity.ok(response);
+    }
+
 }
