@@ -20,8 +20,15 @@ public class BlogServiceImpl implements BlogService {
     private final ModelMapper modelMapper;
 
     @Override
+    public BlogDTO getBlogById(Long id) {
+        return blogRepository.findById(id)
+                .map(blog -> modelMapper.map(blog, BlogDTO.class))
+                .orElse(null);
+    }
+
+    @Override
     public Page<BlogDTO> getAllBlogs(Pageable pageable) {
-        return blogRepository.findAll(pageable)
+        return blogRepository.findAllBlogs(pageable)
                 .map(blog -> modelMapper.map(blog, BlogDTO.class));
     }
 
