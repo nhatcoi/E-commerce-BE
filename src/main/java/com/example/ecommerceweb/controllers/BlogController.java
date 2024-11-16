@@ -9,12 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -34,13 +32,8 @@ public class BlogController {
     @GetMapping("/categories")
     @ResponseBody
     public ResponseEntity<List<?>> getCategories() {
-        try {
-            List<?> categories = blogCategoryService.findAll();
-            return ResponseEntity.ok().body(categories);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Collections.emptyList());
-        }
+        List<?> categories = blogCategoryService.findAll();
+        return ResponseEntity.ok().body(categories);
     }
 
     @GetMapping("/blogs")
@@ -51,7 +44,6 @@ public class BlogController {
         Pageable pageable = PageRequest.of(page, size);
         Page<BlogDTO> blogPage = blogService.getAllBlogs(pageable);
         PaginatedResponse<BlogDTO> response = blogService.createPaginatedResponse(blogPage);
-
         return ResponseEntity.ok(response);
     }
 
@@ -64,7 +56,6 @@ public class BlogController {
         Pageable pageable = PageRequest.of(page, size);
         Page<BlogDTO> blogPage = blogService.getBlogByCategory(pageable, id);
         PaginatedResponse<BlogDTO> response = blogService.createPaginatedResponse(blogPage);
-
         return ResponseEntity.ok(response);
     }
 
