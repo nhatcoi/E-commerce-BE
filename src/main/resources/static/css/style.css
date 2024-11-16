@@ -13,7 +13,7 @@ body {
 
 /* -------------------------------add ------------------------------- */
 /* Sign-in class styles */
-.signin {
+.login {
     background-color: white;
     padding: 20px 40px;
     text-align: center;
@@ -24,18 +24,18 @@ body {
 }
 
 /* Heading styles */
-.signin h2 {
+.login h2 {
     margin-bottom: 20px;
     color: #333;
 }
 
 /* Form styles */
-.signin form {
+.login form {
     margin-bottom: 20px;
 }
 
 /* Input field styles */
-.signin input {
+.login input {
     margin-bottom: 10px;
     padding: 10px;
     width: 80%;
@@ -45,7 +45,7 @@ body {
 }
 
 /* Button styles */
-.signin button {
+.login button {
     background-color: var(--main_color);
     color: white;
     padding: 10px 30px;
@@ -57,18 +57,18 @@ body {
 }
 
 /* Button hover effect */
-.signin button:hover {
+.login button:hover {
     background-color: var(--main_color);
 }
 
 /* Link styles */
-.signin a {
+.login a {
     color: red;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.signin a:hover {
+.login a:hover {
     color: #4d29c5;
 }
 
@@ -502,6 +502,8 @@ ol {
 .header__top__right__auth a i {
     margin-right: 6px;
 }
+
+
 
 .header__logo {
     padding: 15px 0;
@@ -2026,6 +2028,9 @@ ol {
 .shoping__cart__table table tbody tr td.shoping__cart__item img {
     display: inline-block;
     margin-right: 25px;
+    width: 80px;
+    height: 100px;
+    border-radius: 5px;
 }
 
 .shoping__cart__table table tbody tr td.shoping__cart__item h5 {
@@ -2587,14 +2592,14 @@ ol {
 
 .blog__details__hero__text h2 {
     font-size: 46px;
-    color: #ffffff;
+    color: #000000;
     font-weight: 700;
     margin-bottom: 10px;
 }
 
 .blog__details__hero__text ul li {
     font-size: 16px;
-    color: #ffffff;
+    color: #2c2c2c;
     list-style: none;
     display: inline-block;
     margin-right: 45px;
