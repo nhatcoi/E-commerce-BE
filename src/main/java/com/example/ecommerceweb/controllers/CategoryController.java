@@ -3,6 +3,7 @@ package com.example.ecommerceweb.controllers;
 import com.example.ecommerceweb.dtos.CategoryDTO;
 import com.example.ecommerceweb.services.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,15 +24,11 @@ public class CategoryController {
 
     @GetMapping("")
     @ResponseBody
-    public List<?> categories() {
-        return categoryService.getAllCategories();
+    public ResponseEntity<List<?>> getCategories() {
+        List<?> categories = categoryService.getAllCategories();
+        return ResponseEntity.ok().body(categories);
     }
 
-    @GetMapping("/{id}")
-    public String getCategoryById(@PathVariable Long id, Model model) {
-        model.addAttribute("category", categoryService.getCategoryById(id));
-        return "index";
-    }
 
     @PutMapping("/{id}")
     public String updateCategory(@PathVariable Long id, @ModelAttribute CategoryDTO categoryDTO) {
