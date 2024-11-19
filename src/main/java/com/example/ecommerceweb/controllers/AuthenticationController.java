@@ -19,10 +19,12 @@ public class AuthenticationController {
 
     @PostMapping("/log-in")
     public ResponseEntity<AuthenticationResponse> logIn(@RequestBody  AuthenticationRequest request) {
-        boolean result = authenticationService.authenticate(request).isAuthenticated();
-        return ResponseEntity.ok(AuthenticationResponse.builder().
-                isAuthenticated(result).
-                build());
+        AuthenticationResponse result = authenticationService.authenticate(request);
+        return ResponseEntity.ok(AuthenticationResponse.builder()
+                        .token(result.getToken())
+                        .isAuthenticated(result.isAuthenticated())
+                        .build()
+        );
     }
 
 }
