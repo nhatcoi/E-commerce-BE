@@ -1,20 +1,26 @@
 package com.example.ecommerceweb.services;
 
 import com.example.ecommerceweb.dtos.request.AuthenticationRequest;
+import com.example.ecommerceweb.dtos.request.IntrospectRequest;
 import com.example.ecommerceweb.dtos.response.AuthenticationResponse;
+import com.example.ecommerceweb.dtos.response.IntrospectResponse;
 import com.example.ecommerceweb.entities.User;
 import com.example.ecommerceweb.exceptions.ResourceNotFoundException;
 import com.example.ecommerceweb.repository.UserRepository;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
+import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.NonFinal;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -27,8 +33,24 @@ public class AuthenticationService {
     private final UserRepository userRepository;
 
     @NonFinal
-    protected static final String SIGNER_KEY =
-            "iQOECQikAS3X06CvIy/C4Y3mzl4ZHyHEHLh66bIwKDNp+fiS1ujz5r0BXmCh8BDi";
+    @Value("${jwt.signer-key}")
+    protected String SIGNER_KEY;
+
+    public IntrospectResponse introspect(IntrospectRequest request) throws JOSEException, ParseException {
+        var token = request.getToken();
+
+        JWSVerifier verifier = new MACVerifier(SIGNER_KEY);
+
+        SignedJWT signedJWT = SignedJWT.parse(token);
+
+        Date expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+
+        boolean verified = signedJWT.verify(verifier);
+
+        return IntrospectResponse.builder()
+                .valid(verified && expiryTime.after(new Date()))
+                .build();
+    }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);

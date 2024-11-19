@@ -33,3 +33,6 @@ image:
 firebase:
   service-account-path: ${FIREBASE_SERVICE_ACCOUNT_PATH:ecommerce-web-key.json}
   storage-bucket: ${FIREBASE_STORAGE_BUCKET:ecommerce-web-18f77.appspot.com}
+
+jwt:
+  signer-key: ${JWT_SIGNER_KEY}
