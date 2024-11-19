@@ -1,11 +1,17 @@
 package com.example.ecommerceweb.services.services_impl;
 
+import com.example.ecommerceweb.dtos.UserRequest;
 import com.example.ecommerceweb.dtos.UserResponse;
+import com.example.ecommerceweb.entities.Role;
 import com.example.ecommerceweb.entities.User;
+import com.example.ecommerceweb.exceptions.ResourceNotFoundException;
 import com.example.ecommerceweb.repository.UserRepository;
 import com.example.ecommerceweb.services.UserService;
+import com.google.firebase.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,5 +34,28 @@ public class UserServiceImpl implements UserService {
                     .build();
         }
         return null;
+    }
+
+
+    @Override
+    public UserResponse createUser(UserRequest userRequest) {
+        if (userRepository.existsByPhoneNumber(userRequest.getPhoneNumber())) {
+            throw new ResourceNotFoundException("Phone number already exists");
+        }
+
+        User user = User.builder()
+                .phoneNumber(userRequest.getPhoneNumber())
+                .password(userRequest.getPassword())
+                .role(Role.builder().id(Long.valueOf(userRequest.getRoleId())).build())
+                .build();
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+        userRepository.save(user);
+
+        return UserResponse.builder()
+                .id(user.getId())
+                .phoneNumber(user.getPhoneNumber())
+                .password(user.getPassword())
+                .build();
     }
 }
