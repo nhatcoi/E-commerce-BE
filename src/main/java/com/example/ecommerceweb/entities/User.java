@@ -3,6 +3,8 @@ package com.example.ecommerceweb.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -32,13 +34,13 @@ public class User extends BaseEntity {
     private Boolean isActive;
 
     @Column(name = "date_of_birth")
-    private String dateOfBirth;
+    private LocalDateTime dateOfBirth;
 
     @Column(name = "facebook_id")
-    private String facebookId;
+    private Integer facebookId;
 
     @Column(name = "google_id")
-    private String googleId;
+    private Integer googleId;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
