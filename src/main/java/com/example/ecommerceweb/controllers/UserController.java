@@ -7,14 +7,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
-@RequestMapping("api")
+@RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -25,11 +22,31 @@ public class UserController {
         return "login";
     }
 
+    @GetMapping("users")
+    @ResponseBody
+    public ResponseEntity<?> getUsers() {
+        return ResponseEntity.ok().body(userService.getUsers());
+    }
+
+    @GetMapping("users/{userId}")
+    @ResponseBody
+    public ResponseEntity<?> getUserById(@PathVariable Long userId) {
+        return ResponseEntity.ok().body(userService.getUserById(userId));
+    }
+
     @PostMapping("/login")
+    @ResponseBody
     public ResponseEntity<?> login(@RequestBody UserRequest userRequest) {
         UserResponse userResponse = userService.getUserByPhoneNumberAndPassword(
                 userRequest.getPhoneNumber(),
                 userRequest.getPassword());
+        return ResponseEntity.ok().body(userResponse);
+    }
+
+    @PostMapping("/users")
+    @ResponseBody
+    public ResponseEntity<?> register(@RequestBody UserRequest userRequest) {
+        UserResponse userResponse = userService.createUser(userRequest);
         return ResponseEntity.ok().body(userResponse);
     }
 
