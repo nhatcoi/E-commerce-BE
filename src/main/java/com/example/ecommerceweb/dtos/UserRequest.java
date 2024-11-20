@@ -11,4 +11,5 @@ import lombok.*;
 public class UserRequest {
     private String phoneNumber;
     private String password;
+    private Integer roleId;
 }
