@@ -2,7 +2,6 @@ package com.example.ecommerceweb.controllers;
 
 import com.example.ecommerceweb.dtos.request.AuthenticationRequest;
 import com.example.ecommerceweb.dtos.request.IntrospectRequest;
-import com.example.ecommerceweb.dtos.response.ApiResponse;
 import com.example.ecommerceweb.dtos.response.AuthenticationResponse;
 import com.example.ecommerceweb.dtos.response.IntrospectResponse;
 import com.example.ecommerceweb.services.AuthenticationService;
