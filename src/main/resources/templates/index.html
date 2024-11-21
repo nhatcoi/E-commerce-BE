@@ -83,12 +83,13 @@
     <div class="container">
         <div class="row">
             <div class="categories__slider owl-carousel">
-                <div th:each="cate : ${categories}" class="col-lg-3">
+                <div class=" col-lg-3" th:each="cate : ${categories}">
                     <!--                    <div class="categories__item set-bg" th:data-setbg="@{${category.imageUrl}}">-->
                     <div class="categories__item set-bg" th:data-setbg="@{${cate.imageUrl}}">
                         <h5><a th:href="@{'/categories/' + ${cate.id}}" th:text="${cate.name}"></a></h5>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -114,26 +115,33 @@
                 </div>
             </div>
         </div>
-        <div id="product-list" class="row featured__filter">
+        <div id="product-container" class="row featured__filter">
             <!-- Products will be loaded here via AJAX -->
+            <div class="col-lg-3 col-md-4 col-sm-6 mix">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" style="background-image: url('${product.thumbnail}');">
+                        <ul class="product__item__pic__hover">
+                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="/products/${product.id}">${product.name}</a></h6>
+                        <h5>${product.price} $</h5>
+                    </div>
+                </div>
+            </div>
+            <!-- container -->
         </div>
 
         <!-- Pagination -->
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li id="prevPage" class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous" data-page="prev">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <!-- Dynamically create page numbers if needed -->
-                <li id="nextPage" class="page-item">
-                    <a class="page-link" href="#" aria-label="Next" data-page="next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <div class="col-lg-12">
+            <div class="product__pagination blog__pagination d-flex justify-content-center">
+                <a href="#">1</a>
+                <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+            </div>
+        </div>
 
 
     </div>
@@ -251,50 +259,22 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4 col-md-4 col-sm-6">
+            <div id="tech-blog" class="col-lg-4 col-md-4 col-sm-6">
+
                 <div class="blog__item">
                     <div class="blog__item__pic">
                         <img src="/img/blog/blog-loading.jpg" alt="">
                     </div>
                     <div class="blog__item__text">
                         <ul>
-                            <li><i class="fa fa-calendar-o"></i> 10/10/2023</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
+                            <li><i class="fa fa-calendar-o"></i></li>
+                            <li><i class="fa fa-comment-o"></i> </li>
                         </ul>
-                        <h5><a href="#">Đang tải</a></h5>
-                        <p>Đang tải nội dung... </p>
+                        <h5><a href="#"></a></h5>
+                        <p></p>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="blog__item">
-                    <div class="blog__item__pic">
-                        <img src="/img/blog/blog-loading.jpg" alt="">
-                    </div>
-                    <div class="blog__item__text">
-                        <ul>
-                            <li><i class="fa fa-calendar-o"></i> 10/10/2023</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
-                        </ul>
-                        <h5><a href="#">Đang tải</a></h5>
-                        <p>Đang tải nội dung... </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-sm-6">
-                <div class="blog__item">
-                    <div class="blog__item__pic">
-                        <img src="/img/blog/blog-loading.jpg" alt="">
-                    </div>
-                    <div class="blog__item__text">
-                        <ul>
-                            <li><i class="fa fa-calendar-o"></i> 10/10/2023</li>
-                            <li><i class="fa fa-comment-o"></i> 5</li>
-                        </ul>
-                        <h5><a href="#">Đang tải</a></h5>
-                        <p>Đang tải nội dung... </p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -315,6 +295,7 @@
 <script th:src="@{/js/vendor/owl.carousel.min.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/pages/home.js}"></script>
+<script th:src="@{/js/pages/header.js}"></script>
 
 
 
